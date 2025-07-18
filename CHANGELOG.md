@@ -9,6 +9,7 @@
 - Project initialized.
 - Docker compose has been added.
 - Prometheus yml has been added.
+- Project structure initialized.
 
 ### Changed
 
