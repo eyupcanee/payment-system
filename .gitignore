@@ -1,0 +1,63 @@
+﻿# Build output
+bin/
+obj/
+
+# Rider project files
+.idea/
+*.sln.iml
+*.dotSettings.user
+*.DotSettings
+rider.project.model.nuget.info
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userprefs
+
+# Visual Studio files
+.vs/
+
+# Logs
+*.log
+
+# Others
+*.pidb
+*.svd
+*.pdb
+*.cache
+*.dbmdl
+*.bak
+*.backup
+*.swp
+*.tmp
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# JetBrains Rider cache
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Others
+*.class
+*.dll
+*.exe
