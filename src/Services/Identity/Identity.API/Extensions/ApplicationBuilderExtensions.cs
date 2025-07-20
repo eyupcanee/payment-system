@@ -1,6 +1,8 @@
-﻿using Infrastructure.Extensions.Middlewares;
+﻿using System.Globalization;
+using Infrastructure.Extensions.Middlewares;
 using Serilog;
 using Common.Extensions.Middlewares;
+using Prometheus;
 
 namespace Identity.API.Extensions;
 
@@ -10,6 +12,10 @@ public static class ApplicationBuilderExtensions
     {
         app.UseHttpsRedirection();
 
+        app.UseRouting();
+
+        app.UseLocalizationMiddlewares();
+
         app.UseInfrastructureMiddlewares();
         
         app.UseSecurityMiddlewares();
@@ -18,9 +24,30 @@ public static class ApplicationBuilderExtensions
         
         return app;
     }
+
+    private static WebApplication UseLocalizationMiddlewares(this WebApplication app)
+    {
+        var supportedCultures = new[]
+        {
+            new CultureInfo("en-US"),
+            new CultureInfo("tr-TR")
+        };
+
+        var localizationOptions = new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        };
+
+        app.UseRequestLocalization(localizationOptions);
+        return app;
+    }
     
     private static WebApplication UseInfrastructureMiddlewares(this WebApplication app)
     {
+        app.UseHttpMetrics(); 
+        app.MapMetrics();
         app.UseSerilogRequestLogging();
         app.UseGlobalExceptionHandlerMiddleware();
         app.UseCorrelationId();
@@ -29,6 +56,7 @@ public static class ApplicationBuilderExtensions
     
     private static WebApplication UseSecurityMiddlewares(this WebApplication app)
     {
+        app.UseAuthentication();
         app.UseAuthorization();
         return app;
     }

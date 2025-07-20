@@ -1,15 +1,14 @@
 using Identity.API.Extensions;
 using Serilog;
 
-var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
-    .AddEnvironmentVariables()
-    .Build();
-
 Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(configuration)
+    .ReadFrom.Configuration(new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json")
+        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
+        .AddEnvironmentVariables()
+        .Build())
     .CreateLogger();
+
 
 try
 {
@@ -35,7 +34,7 @@ try
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex, "Identity Service start-up failed");
+    Log.Fatal(ex.Source, "Identity Service start-up failed");
 }
 finally
 {

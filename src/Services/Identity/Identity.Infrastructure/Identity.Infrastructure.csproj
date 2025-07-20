@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Common">
+      <HintPath>..\..\..\BuildingBlocks\Common\bin\Debug\net9.0\Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

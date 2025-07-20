@@ -1,5 +1,11 @@
 ﻿using Asp.Versioning;
 using Common.Filters;
+using FluentValidation;
+using Identity.API.Validators;
+using Identity.Application.Security.Abstract;
+using Identity.Application.Security.Concrete;
+using Identity.Application.Services.Abstract;
+using Identity.Application.Services.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.API.Extensions;
@@ -32,9 +38,15 @@ public static class PresentationServiceExtensions
             options.SubstituteApiVersionInUrl = true;
         });
 
+
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IIdentityService, IdentityService>();
         
         services.AddLocalization(options => options.ResourcesPath = "Resources");
         
+        services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+        services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
+
         return services;
     }
     

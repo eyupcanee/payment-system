@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference  Include="Microsoft.AspNetCore.App" Version="2.2.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <FrameworkReference  Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Serilog.Enrichers.Context" Version="4.6.5" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.47" />
   </ItemGroup>
