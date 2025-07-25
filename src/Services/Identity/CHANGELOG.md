@@ -1,8 +1,26 @@
 # Changelog
 
-## Latest Version : v0.1.0
+## Latest Version : v0.1.1
 
 ## [Unreleased]
+
+## [v0.1.1] - 2025-07-26
+
+### Added
+
+- No changes.
+
+### Changed
+
+- Opentelemetry trace exporter method has been changed.
+
+### Fixed
+
+- No changes.
+
+### Removed
+
+- No changes.
 
 ## [v0.1.0] - 2025-07-25
 

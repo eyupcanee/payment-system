@@ -1,8 +1,19 @@
 ﻿# Changelog
 
-## Latest Version : v0.2.0
+## Latest Version : v0.3.0
 
 ## [Unreleased]
+
+## [v0.3.0] - 2025-07-26
+
+### Added
+
+- ApiGateway has been added. -> [View Details](src/Gateways/ApiGateway/CHANGELOG.md)
+- Docker compose jaeger ports updated. Http and gRPC ports have been added.
+
+### Changed
+
+### Fixed
 
 ## [v0.2.0] - 2025-07-25
 
