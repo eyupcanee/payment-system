@@ -1,23 +1,34 @@
-﻿
-# Changelog
+﻿# Changelog
 
-## Latest Version : v0.1.1
+## Latest Version : v0.2.0
 
-## [v0.1.1] - 2025-07-19
+## [Unreleased]
+
+## [v0.2.0] - 2025-07-25
+
 ### Added
 
-- CorrelationId Middleware has been added.
-- CorrelationId Middleware extension has been added.
-- CorrelationId Delegate Handler has been added.
-- PaymentOrchestration service extensions seperated.
-- Serilog has been configured.
+- Changelogs are seperated for each service.
+- Identity service has been completed. -> [View Details](src/Services/Identity/CHANGELOG.md)
+- BuildingBlocks Infrastructure improved. -> [View Details](src/BuildingBlocks/Infrastructure/CHANGELOG.md)
+- BuildingBlocks Common improved. -> [View Details](src/BuildingBlocks/Common/CHANGELOG.md)
 
 ### Changed
 
 ### Fixed
 
+## [v0.1.1] - 2025-07-19
+
+### Added
+
+- PaymentOrchestration service has been created. ->[View Details](src/Services/PaymentOrchestration/CHANGELOG.md)
+
+### Changed
+
+### Fixed
 
 ## [v0.1.0] - 2025-07-18
+
 ### Added
 
 - Project initialized.
@@ -28,7 +39,3 @@
 ### Changed
 
 ### Fixed
-
-
-
-
