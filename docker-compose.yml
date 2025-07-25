@@ -18,6 +18,7 @@ services:
     container_name: payment_blacklist_redis
     ports:
       - 6380:6379
+    command: ["redis-server", "--requirepass", "test12345"]
         
   
   rabbitmq:
