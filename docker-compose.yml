@@ -1,4 +1,4 @@
-﻿version: '3.8'
+﻿version: "3.8"
 
 services:
   identity_db:
@@ -12,15 +12,14 @@ services:
       - 5433:5432
     volumes:
       - identity_db_data:/var/lib/postgresql/data
-        
+
   redis_blacklist_cache:
     image: redis:7
     container_name: payment_blacklist_redis
     ports:
       - 6380:6379
     command: ["redis-server", "--requirepass", "test12345"]
-        
-  
+
   rabbitmq:
     image: rabbitmq:3.12-management
     container_name: payment_rabbitmq
@@ -30,7 +29,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=rabbitmq
       - RABBITMQ_DEFAULT_PASSWORD=test12345
-  
+
   seq:
     image: datalust/seq:latest
     container_name: payment_seq
@@ -40,7 +39,7 @@ services:
     ports:
       - "5341:80"
       - "5342:5341"
-  
+
   prometheus:
     image: prom/prometheus:latest
     container_name: payment_prometheus
@@ -49,8 +48,8 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-        
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
   grafana:
     image: grafana/grafana-oss:latest
     container_name: payment_grafana
@@ -58,17 +57,16 @@ services:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
-  
+
   jaeger:
     image: jaegertracing/all-in-one:latest
     container_name: payment_jaeger
     ports:
       - "6831:6831/udp"
       - "16686:16686"
+      - "14268:14268"
+      - "4317:4317"
 
 volumes:
   identity_db_data:
   grafana_data:
-    
-
-  

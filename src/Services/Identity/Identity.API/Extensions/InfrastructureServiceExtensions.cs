@@ -28,10 +28,9 @@ public static class InfrastructureServiceExtensions
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddSource("IdentityService")
-                    .AddJaegerExporter(o =>
+                    .AddOtlpExporter(o =>
                     {
-                        o.AgentHost = configuration["Jaeger:Host"] ?? "localhost";
-                        o.AgentPort = int.Parse(configuration["Jaeger:Port"] ?? "6831");
+                        o.Endpoint = new Uri("http://localhost:4317");
                     });
             });
 

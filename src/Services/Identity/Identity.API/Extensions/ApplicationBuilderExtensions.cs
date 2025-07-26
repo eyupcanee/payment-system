@@ -48,9 +48,10 @@ public static class ApplicationBuilderExtensions
     {
         app.UseHttpMetrics(); 
         app.MapMetrics();
+        app.UseCorrelationId();
         app.UseSerilogRequestLogging();
         app.UseGlobalExceptionHandlerMiddleware();
-        app.UseCorrelationId();
+      
         return app;
     }
     
