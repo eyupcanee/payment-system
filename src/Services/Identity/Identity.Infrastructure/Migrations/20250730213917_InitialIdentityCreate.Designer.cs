@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20250720144601_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250730213917_InitialIdentityCreate")]
+    partial class InitialIdentityCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,6 +137,26 @@ namespace Identity.Infrastructure.Migrations
                         {
                             Id = 4,
                             Name = "permissions:delete"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "payment:read"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "payment:write"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "payment:update"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "payment:delete"
                         });
                 });
 
@@ -177,8 +197,38 @@ namespace Identity.Infrastructure.Migrations
                         },
                         new
                         {
+                            RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            PermissionId = 5
+                        },
+                        new
+                        {
+                            RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            PermissionId = 6
+                        },
+                        new
+                        {
+                            RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            PermissionId = 7
+                        },
+                        new
+                        {
+                            RoleId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            PermissionId = 8
+                        },
+                        new
+                        {
                             RoleId = new Guid("22222222-2222-2222-2222-222222222222"),
                             PermissionId = 1
+                        },
+                        new
+                        {
+                            RoleId = new Guid("22222222-2222-2222-2222-222222222222"),
+                            PermissionId = 5
+                        },
+                        new
+                        {
+                            RoleId = new Guid("22222222-2222-2222-2222-222222222222"),
+                            PermissionId = 6
                         });
                 });
 

@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 using Common.Contracts.Responses;
 using Common.Resources;
 using Infrastructure.Cache.Abstract;
@@ -18,9 +19,10 @@ public class TokenBlacklistMiddleware
 
     public async Task Invoke(HttpContext context, ITokenBlacklistService blacklistService,IStringLocalizer<SharedResource> localizer)
     {
-        var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ","");
+        var jti = context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
 
-        if (!string.IsNullOrEmpty(token) && await blacklistService.IsBlacklistedAsync(token))
+
+        if (!string.IsNullOrEmpty(jti) && await blacklistService.IsBlacklistedAsync(jti))
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = 401;

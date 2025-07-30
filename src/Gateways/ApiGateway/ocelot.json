@@ -22,10 +22,19 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/orchestration-service/{version}/{everything}",
-      "UpstreamHttpMethod": ["GET"],
+      "UpstreamHttpMethod": ["GET","POST"],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "X-User-Id": "{claims[sub]}",
+        "X-User-Email":  "{claims[email]}",ARKAD
+        "X-Jti": "{claims[jti]}",
+        "X-Permissions": "{claims[permissions], \", \"}"
+      },
+      "UpstreamHeaderTransform": {
+        "Authorization": ""
       }
     }
   ],

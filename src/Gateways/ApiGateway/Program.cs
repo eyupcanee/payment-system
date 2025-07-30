@@ -26,13 +26,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.WebHost.ConfigureKestrel(options => options.Configure(builder.Configuration.GetSection("Kestrel")));
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
+
 
 builder.Services.AddOcelot();
 
 var app = builder.Build();
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 await app.UseOcelot();
 
