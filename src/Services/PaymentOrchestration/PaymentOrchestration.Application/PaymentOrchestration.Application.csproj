@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PaymentOrchestration.Domain\PaymentOrchestration.Domain.csproj" />
   </ItemGroup>
 

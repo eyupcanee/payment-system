@@ -22,6 +22,8 @@ public class CreatePaymentRequestCommandHandler : IRequestHandler<CreatePaymentR
 
         await _paymentRequestRepository.AddAsync(newPaymentRequest);
         
+        await _paymentRequestRepository.SaveChangesAsync(cancellationToken);
+        
         return newPaymentRequest.Id;
     }
 }

@@ -13,14 +13,11 @@ public static class ApplicationBuilderExtensions
         app.UseHttpsRedirection();
 
         app.UseRouting();
-
-        // ✅ Authentication & Authorization sırası burada olmalı
         app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseLocalizationMiddlewares();
         app.UseInfrastructureMiddlewares();
-        app.UseSecurityMiddlewares(); // Buradaki UseAuthorization kaldırıldı!
 
         app.MapControllers();
 

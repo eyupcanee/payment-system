@@ -1,9 +1,12 @@
-﻿using Asp.Versioning;
+﻿using System.Text;
+using Asp.Versioning;
 using Common.Filters;
 using FluentValidation;
 using Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 using PaymentOrchestration.Application.Interfaces.Repositories;
 using PaymentOrchestration.Infrastructure.Repositories;
 
@@ -20,13 +23,26 @@ public static class PresentationServiceExtensions
 
         services.AddOpenApi();
 
-        // 🔹 Dummy authentication scheme tanımlıyoruz
-        services.AddAuthentication("HeaderBasedAuthentication")
-            .AddScheme<AuthenticationSchemeOptions, HeaderAuthenticationHandler>("HeaderBasedAuthentication", null);
+   
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer("Bearer", options =>
+            {
+                var jwtSettings = configuration.GetSection("Jwt");
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings["Issuer"],
+                    ValidAudience = jwtSettings["Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(jwtSettings["Key"]!)), 
+                };
+            });
 
         services.AddAuthorization();
-
-        // 🔹 Custom policy ve permission handler
+        
         services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 

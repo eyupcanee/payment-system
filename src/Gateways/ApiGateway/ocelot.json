@@ -26,15 +26,6 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
-      },
-      "AddHeadersToRequest": {
-        "X-User-Id": "{claims[sub]}",
-        "X-User-Email":  "{claims[email]}",ARKAD
-        "X-Jti": "{claims[jti]}",
-        "X-Permissions": "{claims[permissions], \", \"}"
-      },
-      "UpstreamHeaderTransform": {
-        "Authorization": ""
       }
     }
   ],

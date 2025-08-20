@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentOrchestration.API.DTOs;
 using PaymentOrchestration.Application.Features.Commands.CreatePaymentRequest;
+using PaymentOrchestration.Application.Features.Queries.GetPaymentRequestById;
 
 namespace PaymentOrchestration.API.Controllers;
 
@@ -32,5 +33,19 @@ public class PaymentController: ControllerBase
         var response = ApiResponse<object>.SuccessResponse(paymentId,200,"Created Payment Request");
             
         return Ok(response);
+    }
+
+    [HttpGet("{id}")]
+    [Authorize(Policy = "payment:read")]
+    public async Task<IActionResult> GetPaymentById(Guid id)
+    {
+        var query = new GetPaymentRequestByIdQuery(id);
+
+        var result = await _mediator.Send(query);
+
+
+        return result is not null
+            ? Ok(ApiResponse<object>.SuccessResponse(result, 200, "Payment Request Found"))
+            : Ok("Bulunamadu");
     }
 }
