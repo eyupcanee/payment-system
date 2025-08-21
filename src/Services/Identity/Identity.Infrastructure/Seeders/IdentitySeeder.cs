@@ -18,6 +18,10 @@ public static class IdentitySeeder
             new() { Id = 2, Name = Permissions.Permission.Write },
             new() { Id = 3, Name = Permissions.Permission.Update },
             new() { Id = 4, Name = Permissions.Permission.Delete },
+            new() { Id = 5, Name = Permissions.Payment.Read },
+            new() { Id = 6, Name = Permissions.Payment.Write },
+            new() { Id = 7, Name = Permissions.Payment.Update },
+            new() { Id = 8, Name = Permissions.Payment.Delete },
         };
         modelBuilder.Entity<Permission>().HasData(permissions);
         
@@ -30,7 +34,9 @@ public static class IdentitySeeder
         modelBuilder.Entity<RolePermission>().HasData(adminRolePermissions);
 
         modelBuilder.Entity<RolePermission>().HasData(
-            new RolePermission { RoleId = userRoleId, PermissionId = 1 }
+            new RolePermission { RoleId = userRoleId, PermissionId = 1 },
+            new RolePermission { RoleId = userRoleId, PermissionId = 5 },
+            new RolePermission { RoleId = userRoleId, PermissionId = 6 }
         );
 
         modelBuilder.Entity<AppUser>().HasData(new AppUser

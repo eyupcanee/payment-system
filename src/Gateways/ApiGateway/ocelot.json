@@ -22,7 +22,7 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/orchestration-service/{version}/{everything}",
-      "UpstreamHttpMethod": ["GET"],
+      "UpstreamHttpMethod": ["GET","POST"],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []

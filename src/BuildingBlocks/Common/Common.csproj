@@ -20,4 +20,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\Events\" />
+  </ItemGroup>
+
 </Project>

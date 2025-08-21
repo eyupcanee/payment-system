@@ -13,6 +13,18 @@ services:
     volumes:
       - identity_db_data:/var/lib/postgresql/data
 
+  payment_db:
+    image: postgres:15
+    container_name: payment_orchestration_postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test12345
+      - POSTGRES_DB=PaymentDb
+    ports:
+      - 5434:5432
+    volumes:
+      - payment_db_data:/var/lib/postgresql/data
+
   redis_blacklist_cache:
     image: redis:7
     container_name: payment_blacklist_redis
@@ -27,8 +39,8 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
-      - RABBITMQ_DEFAULT_USER=rabbitmq
-      - RABBITMQ_DEFAULT_PASSWORD=test12345
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
 
   seq:
     image: datalust/seq:latest
@@ -69,4 +81,5 @@ services:
 
 volumes:
   identity_db_data:
+  payment_db_data:
   grafana_data:

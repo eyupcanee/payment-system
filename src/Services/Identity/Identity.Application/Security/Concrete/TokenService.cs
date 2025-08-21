@@ -29,7 +29,7 @@ public class TokenService : ITokenService
         
         foreach (var permission in permissions)
         {
-            claims.Add(new Claim("permission", permission));
+            claims.Add(new Claim("permissions", permission));
         }
         
         var jwtSettings = _configuration.GetSection("Jwt");

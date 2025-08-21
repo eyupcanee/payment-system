@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Identity.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialIdentityCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -108,7 +108,11 @@ namespace Identity.Infrastructure.Migrations
                     { 1, "permissions:read" },
                     { 2, "permissions:write" },
                     { 3, "permissions:update" },
-                    { 4, "permissions:delete" }
+                    { 4, "permissions:delete" },
+                    { 5, "payment:read" },
+                    { 6, "payment:write" },
+                    { 7, "payment:update" },
+                    { 8, "payment:delete" }
                 });
 
             migrationBuilder.InsertData(
@@ -134,7 +138,13 @@ namespace Identity.Infrastructure.Migrations
                     { 2, new Guid("11111111-1111-1111-1111-111111111111") },
                     { 3, new Guid("11111111-1111-1111-1111-111111111111") },
                     { 4, new Guid("11111111-1111-1111-1111-111111111111") },
-                    { 1, new Guid("22222222-2222-2222-2222-222222222222") }
+                    { 5, new Guid("11111111-1111-1111-1111-111111111111") },
+                    { 6, new Guid("11111111-1111-1111-1111-111111111111") },
+                    { 7, new Guid("11111111-1111-1111-1111-111111111111") },
+                    { 8, new Guid("11111111-1111-1111-1111-111111111111") },
+                    { 1, new Guid("22222222-2222-2222-2222-222222222222") },
+                    { 5, new Guid("22222222-2222-2222-2222-222222222222") },
+                    { 6, new Guid("22222222-2222-2222-2222-222222222222") }
                 });
 
             migrationBuilder.InsertData(
