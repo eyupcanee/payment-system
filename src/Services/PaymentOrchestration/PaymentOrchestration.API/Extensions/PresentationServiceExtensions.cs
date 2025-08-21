@@ -3,11 +3,13 @@ using Asp.Versioning;
 using Common.Filters;
 using FluentValidation;
 using Infrastructure.Authorization;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using PaymentOrchestration.Application.Interfaces.Repositories;
+using PaymentOrchestration.Application.StateMachines;
 using PaymentOrchestration.Infrastructure.Repositories;
 
 namespace PaymentOrchestration.API.Extensions;
@@ -51,6 +53,26 @@ public static class PresentationServiceExtensions
         services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(typeof(PaymentOrchestration.Application.AssemblyReference).Assembly));
 
+        services.AddMassTransit(x =>
+        {
+            x.AddConsumers(typeof(PaymentOrchestration.Application.AssemblyReference).Assembly);
+
+            x.AddSagaStateMachine<PaymentRequestSagaStateMachine, PaymentRequestSagaState>()
+                .InMemoryRepository();
+            
+            x.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host(configuration.GetSection("RabbitMq")["Host"],"/", h =>
+                {
+                    h.Username(configuration.GetSection("RabbitMq")["Username"]!);
+                    h.Password(configuration.GetSection("RabbitMq")["Password"]!);
+                });
+                
+                cfg.ConfigureEndpoints(context);
+            });
+        
+        });
+        
         services.AddApiVersioning(options =>
         {
             options.DefaultApiVersion = new ApiVersion(1, 0);

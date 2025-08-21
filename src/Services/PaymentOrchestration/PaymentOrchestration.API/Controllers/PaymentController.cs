@@ -4,6 +4,7 @@ using Common.Contracts.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using PaymentOrchestration.API.DTOs;
 using PaymentOrchestration.Application.Features.Commands.CreatePaymentRequest;
 using PaymentOrchestration.Application.Features.Queries.GetPaymentRequestById;
@@ -16,10 +17,12 @@ namespace PaymentOrchestration.API.Controllers;
 public class PaymentController: ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IStringLocalizer<PaymentController> _localizer;
 
-    public PaymentController(IMediator mediator)
+    public PaymentController(IMediator mediator, IStringLocalizer<PaymentController> localizer)
     {
         _mediator = mediator;
+        _localizer = localizer;
     }
 
     [HttpPost("create")]
@@ -30,7 +33,7 @@ public class PaymentController: ControllerBase
         
         var paymentId = await _mediator.Send(command);
         
-        var response = ApiResponse<object>.SuccessResponse(paymentId,200,"Created Payment Request");
+        var response = ApiResponse<object>.SuccessResponse(paymentId,200,_localizer["Payment_Created"]);
             
         return Ok(response);
     }
@@ -45,7 +48,7 @@ public class PaymentController: ControllerBase
 
 
         return result is not null
-            ? Ok(ApiResponse<object>.SuccessResponse(result, 200, "Payment Request Found"))
-            : Ok("Bulunamadu");
+            ? Ok(ApiResponse<object>.SuccessResponse(result, 200, _localizer["Payment_Found"]))
+            : NotFound(ApiResponse<object>.FailResponse(_localizer["Payment_NotFound"], 404));
     }
 }
