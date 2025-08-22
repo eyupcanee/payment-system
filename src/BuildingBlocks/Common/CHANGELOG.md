@@ -1,8 +1,28 @@
 # Changelog
 
-## Latest Version : v0.2.0
+## Latest Version : v0.3.0
 
 ## [Unreleased]
+
+## [v0.3.0] - 2025-08-22
+
+### Added
+
+- CheckFraudCommand has been added.
+- FraudCheckFailedEvent has been added.
+- FraudCheckPassedEvent has been added.
+
+### Changed
+
+- No changes.
+
+### Fixed
+
+- No changes.
+
+### Removed
+
+- No changes.
 
 ## [v0.2.0] - 2025-08-21
 
