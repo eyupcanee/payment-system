@@ -1,8 +1,20 @@
 ﻿# Changelog
 
-## Latest Version : v0.3.0
+## Latest Version : v0.5.0
 
 ## [Unreleased]
+
+## [v0.5.0] - 2025-07-22
+
+### Added
+
+- Payment Gateway service has been added.. -> [View Details](src/Services/PaymentGateway/CHANGELOG.md)
+
+## [v0.4.0] - 2025-08-21
+
+### Added
+
+- Fraud Detection Service has been added -> [View Details](src/Services/FraudDetection/CHANGELOG.md)
 
 ## [v0.3.0] - 2025-07-26
 

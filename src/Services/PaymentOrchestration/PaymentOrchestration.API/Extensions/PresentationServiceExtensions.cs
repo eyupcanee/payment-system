@@ -8,7 +8,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using PaymentOrchestration.Application.Configuration.Bank;
 using PaymentOrchestration.Application.Interfaces.Repositories;
+using PaymentOrchestration.Application.Services.Abstract;
+using PaymentOrchestration.Application.Services.Concrete;
 using PaymentOrchestration.Application.StateMachines;
 using PaymentOrchestration.Infrastructure.Repositories;
 
@@ -22,6 +25,8 @@ public static class PresentationServiceExtensions
         {
             options.Filters.Add<ValidationFilter>();
         });
+        
+        services.Configure<BankSettings>(configuration.GetSection("BankConfigurations"));
 
         services.AddOpenApi();
 
@@ -49,6 +54,7 @@ public static class PresentationServiceExtensions
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
         services.AddScoped<IPaymentRequestRepository, PaymentRequestRepository>();
+        services.AddScoped<IRoutingService, RoutingService>();
 
         services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(typeof(PaymentOrchestration.Application.AssemblyReference).Assembly));
@@ -59,6 +65,8 @@ public static class PresentationServiceExtensions
 
             x.AddSagaStateMachine<PaymentRequestSagaStateMachine, PaymentRequestSagaState>()
                 .InMemoryRepository();
+            
+            x.AddActivities(typeof(PaymentOrchestration.Application.AssemblyReference).Assembly);
             
             x.UsingRabbitMq((context, cfg) =>
             {
