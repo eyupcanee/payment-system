@@ -32,7 +32,9 @@ public class CreatePaymentRequestCommandHandler : IRequestHandler<CreatePaymentR
         {
             PaymentRequestId = newPaymentRequest.Id,
             Amount = newPaymentRequest.Amount.Amount,
-            Currency = newPaymentRequest.Amount.Currency
+            Currency = newPaymentRequest.Amount.Currency,
+            CardHolderName = newPaymentRequest.CardHolderName,
+            TokenizedCardNumber = newPaymentRequest.TokenizedCardNumber
         }, cancellationToken);
         
         return newPaymentRequest.Id;
