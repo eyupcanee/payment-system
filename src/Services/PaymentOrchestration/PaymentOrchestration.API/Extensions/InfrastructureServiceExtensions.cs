@@ -19,6 +19,9 @@ public static class InfrastructureServiceExtensions
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<PaymentDbContext>(options =>
             options.UseNpgsql(connectionString));
+        
+        services.AddDbContext<PaymentSagaDbContext>(options =>
+            options.UseNpgsql(connectionString));
 
         services.AddOpenTelemetry()
             .WithTracing(tracerProviderBuilder =>

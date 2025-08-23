@@ -31,6 +31,8 @@ public class PaymentDbContext : DbContext
         modelBuilder.Entity<PaymentRequest>().ToTable("payment_requests");
         
         base.OnModelCreating(modelBuilder);
+        
+       
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

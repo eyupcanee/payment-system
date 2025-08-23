@@ -7,12 +7,14 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PaymentOrchestration.Application.Configuration.Bank;
 using PaymentOrchestration.Application.Interfaces.Repositories;
 using PaymentOrchestration.Application.Services.Abstract;
 using PaymentOrchestration.Application.Services.Concrete;
 using PaymentOrchestration.Application.StateMachines;
+using PaymentOrchestration.Infrastructure;
 using PaymentOrchestration.Infrastructure.Repositories;
 
 namespace PaymentOrchestration.API.Extensions;
@@ -64,7 +66,15 @@ public static class PresentationServiceExtensions
             x.AddConsumers(typeof(PaymentOrchestration.Application.AssemblyReference).Assembly);
 
             x.AddSagaStateMachine<PaymentRequestSagaStateMachine, PaymentRequestSagaState>()
-                .InMemoryRepository();
+                .EntityFrameworkRepository(r =>
+                {
+                    r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+                    r.AddDbContext<DbContext,PaymentSagaDbContext>((provider, builder) =>
+                    {
+                        builder.UseNpgsql(configuration.GetConnectionString("DefaultConnection")!);
+                    });
+                    r.UsePostgres();
+                });
             
             x.AddActivities(typeof(PaymentOrchestration.Application.AssemblyReference).Assembly);
             
@@ -75,6 +85,12 @@ public static class PresentationServiceExtensions
                     h.Username(configuration.GetSection("RabbitMq")["Username"]!);
                     h.Password(configuration.GetSection("RabbitMq")["Password"]!);
                 });
+                
+                cfg.UseMessageRetry(r =>
+                {
+                    r.Interval(5, TimeSpan.FromSeconds(1));
+                });
+
                 
                 cfg.ConfigureEndpoints(context);
             });
